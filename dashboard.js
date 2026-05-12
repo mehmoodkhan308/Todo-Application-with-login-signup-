@@ -1,23 +1,29 @@
-
-
-
-
-
 const parent = document.getElementById("parent")
-
-
-
-
-
 function addNotes() {
     const notes = document.getElementById("notes")
-
-
     // validation 
     if (notes.value.length < 5) {
         alert("invalid notes")
         return
     }
+
+    const userobj = {
+        notes: notes.value,
+    }
+
+    const usernotes = localStorage.getItem("usernotes")
+    if (!usernotes) {
+        // first notes aya hai
+        localStorage.setItem("usernotes", JSON.stringify([userobj]))
+    } else {
+        // first notes nhi hai 
+        const getNotes = JSON.parse(usernotes)
+        // console.log(getNotes);
+        getNotes.push(userobj)
+        localStorage.setItem("usernotes", JSON.stringify(getNotes))
+
+    }
+    alert("notes created!")
 
     const cardDAta = ` 
 
@@ -34,6 +40,13 @@ function addNotes() {
 
     parent.innerHTML += cardDAta
     notes.value = ""
+
+
+    // localstorage ma data save ho rha hai
+
+
+
+
 }
 
 function deleteall() {
@@ -47,5 +60,7 @@ function deleteeee(delebtn) {
     delebtn.parentNode.parentNode.remove()
 
 }
+
+
 
 
